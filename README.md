@@ -1,43 +1,278 @@
-# Astro Starter Kit: Minimal
+# ⛽ Refinery Ops Dashboard
 
-```sh
-npm create astro@latest -- --template minimal
+A production-grade oil & gas refinery monitoring dashboard built with **Astro**, **React**, **Tailwind CSS**, and **Recharts**. Designed for real-time visibility into crude throughput, product yield, unit status, and quality metrics — with a clean light mode default and a toggleable dark mode.
+
+---
+
+## 📸 Preview
+
+> Light mode default — optimized for dayshift operations center displays.
+> Toggle to dark mode for low-light environments or control room use.
+
+|                  Light Mode                  |              Dark Mode               |
+| :------------------------------------------: | :----------------------------------: |
+| Warm parchment base, precision amber accents | Deep navy base, ember orange accents |
+
+---
+
+## 🚀 Live Demo
+
+**[View on Netlify →](https://your-site-name.netlify.app)**
+
+> Replace with your Netlify URL after first deploy.
+
+---
+
+## 📊 Dashboard Panels
+
+| Panel                          | Description                                                                                      |
+| ------------------------------ | ------------------------------------------------------------------------------------------------ |
+| **KPI Row**                    | Crude throughput (kBPD), net production (bbl/d), energy intensity (MJ/bbl), sulfur content (ppm) |
+| **Hourly Throughput**          | 24-hour area chart — crude, gasoline, diesel, jet fuel streams                                   |
+| **Product Yield Distribution** | Stacked bar chart — 7-day yield breakdown as % of crude                                          |
+| **Capacity Utilization**       | SVG arc gauges per active process unit                                                           |
+| **Production vs. Target**      | 8-month actual vs. target line chart                                                             |
+| **Process Units**              | Live status table — CDU, VDU, FCC, HDS, RFM, ALK with temp/pressure/load                         |
+| **Sulfur Output Trend**        | 9-week sulfur ppm trend with spec limit reference line                                           |
+| **Alerts**                     | Operational alerts with severity levels and timestamps                                           |
+
+---
+
+## 🛠 Tech Stack
+
+```
+Astro 4.x          — Static/SSR framework (React islands via client:load)
+React 18            — Interactive component layer
+Tailwind CSS 3.x    — Utility-first styling
+Recharts 2.x        — AreaChart, BarChart, LineChart, RadialBarChart
+Lucide React        — Icon system
+JetBrains Mono      — Monospace display font (Google Fonts)
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+---
 
-## 🚀 Project Structure
+## 📁 Project Structure
 
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
+```
+refinery-dashboard/
 ├── public/
+│   └── favicon.svg
 ├── src/
+│   ├── components/
+│   │   └── RefineryDashboard.jsx    # Main dashboard (React island)
+│   ├── layouts/
+│   │   └── Base.astro               # HTML shell with meta tags
 │   └── pages/
-│       └── index.astro
-└── package.json
+│       └── index.astro              # Entry page — mounts dashboard
+├── astro.config.mjs                 # Astro config (React + Tailwind integrations)
+├── tailwind.config.mjs              # Tailwind content paths
+├── netlify.toml                     # Netlify build config
+├── package.json
+└── README.md
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+---
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## ⚙️ Local Development
 
-Any static assets, like images, can be placed in the `public/` directory.
+### Prerequisites
 
-## 🧞 Commands
+| Tool    | Version            | Install                            |
+| ------- | ------------------ | ---------------------------------- |
+| Node.js | v18+ (LTS)         | [nodejs.org](https://nodejs.org)   |
+| Git     | Latest             | [git-scm.com](https://git-scm.com) |
+| npm     | Included with Node | —                                  |
 
-All commands are run from the root of the project, from a terminal:
+### Install & Run
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+```bash
+# 1. Clone the repo
+git clone https://github.com/YOUR_USERNAME/refinery-dashboard.git
+cd refinery-dashboard
 
-## 👀 Want to learn more?
+# 2. Install dependencies
+npm install
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+# 3. Start dev server
+npm run dev
+```
+
+Open [http://localhost:4321](http://localhost:4321) in your browser.
+
+### Build for Production
+
+```bash
+npm run build       # Outputs to /dist
+npm run preview     # Preview the production build locally
+```
+
+---
+
+## 🎨 Theme System
+
+The dashboard ships with a **full dual-theme token system** — no Tailwind dark mode classes needed. Both themes are defined as plain JS objects in `RefineryDashboard.jsx` under the `themes` constant.
+
+```js
+// Switching is as simple as:
+const [isDark, setIsDark] = useState(false); // false = light (default)
+const t = isDark ? themes.dark : themes.light;
+```
+
+Every color, shadow, border, and glow is derived from `t.*` tokens, making it trivial to add a third theme (e.g., high-contrast, brand-specific).
+
+### Light Mode Palette
+
+| Token    | Value     | Usage                      |
+| -------- | --------- | -------------------------- |
+| `bg`     | `#f4f1ec` | Page background            |
+| `accent` | `#c24918` | Primary brand / highlights |
+| `teal`   | `#1a7a6e` | Good status / sulfur trend |
+| `blue`   | `#2c5f8a` | Diesel / energy            |
+| `amber`  | `#b5621a` | Warning state / gasoline   |
+
+### Dark Mode Palette
+
+| Token    | Value     | Usage                      |
+| -------- | --------- | -------------------------- |
+| `bg`     | `#060912` | Page background            |
+| `accent` | `#e8612a` | Primary brand / highlights |
+| `teal`   | `#2a9d8f` | Good status / sulfur trend |
+| `blue`   | `#457b9d` | Diesel / energy            |
+| `amber`  | `#f4a261` | Warning state / gasoline   |
+
+---
+
+## 🌐 Deployment
+
+### Netlify (Recommended)
+
+This repo includes a `netlify.toml` for zero-config Netlify deploys.
+
+```toml
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+```
+
+**Steps:**
+
+1. Push to GitHub
+2. Go to [netlify.com](https://netlify.com) → **Add new site** → **Import from GitHub**
+3. Select this repo — build settings are auto-detected
+4. Click **Deploy** — live in ~60 seconds
+
+Every push to `main` triggers an automatic redeploy.
+
+### Manual Deploy via Netlify CLI
+
+```bash
+npm install -g netlify-cli
+netlify login
+npm run build
+netlify deploy --prod --dir=dist
+```
+
+---
+
+## 🗺 Roadmap
+
+- [ ] **WebSocket integration** — replace mock data with live OPC-UA / SCADA feed
+- [ ] **Units detail tab** — drill-down per process unit with historical trend charts
+- [ ] **Quality tab** — RON/MON octane tracking, density, flash point monitoring
+- [ ] **Inventory tab** — tank levels with capacity bar indicators
+- [ ] **Drag-and-drop layout** — `react-grid-layout` for configurable widget arrangement
+- [ ] **Persistent layout** — save widget config to Supabase/Postgres via JSON
+- [ ] **Framer Motion** — staggered load animations, smooth panel transitions
+- [ ] **Mobile responsive** — collapsible sidebar + stacked card layout for tablets
+- [ ] **Alert push notifications** — browser Notification API for critical threshold breaches
+- [ ] **CSV/PDF export** — one-click production report generation
+
+---
+
+## 🔧 Customization
+
+### Swap in Real Data
+
+All mock data arrays are defined at the top of `RefineryDashboard.jsx`. Replace with API calls or WebSocket subscriptions:
+
+```jsx
+// Replace static array:
+const [throughputData, setThroughputData] = useState([]);
+
+useEffect(() => {
+  const ws = new WebSocket("wss://your-scada-endpoint/throughput");
+  ws.onmessage = (e) => setThroughputData(JSON.parse(e.data));
+  return () => ws.close();
+}, []);
+```
+
+### Add a New KPI Card
+
+```jsx
+<StatCard
+  label="Flare Gas Recovery"
+  value="98.2"
+  unit="%"
+  delta="+0.3%"
+  deltaPos
+  icon={Wind}
+  accent={t.teal}
+  accentSoft={t.tealGlow}
+  t={t}
+/>
+```
+
+### Add a New Process Unit
+
+```js
+// In the unitStatus array:
+{ name: "DHT-2", load: 83, temp: 344, pressure: 74, status: "optimal", product: "Diesel Hydrotreater" },
+```
+
+---
+
+## 🐛 Troubleshooting
+
+| Issue                         | Fix                                                                    |
+| ----------------------------- | ---------------------------------------------------------------------- |
+| Charts not rendering          | Ensure `client:load` is on `<RefineryDashboard />` in `index.astro`    |
+| Tailwind classes not applying | Check `content` glob in `tailwind.config.mjs` includes `*.jsx`         |
+| Fonts not loading             | Check internet connection — JetBrains Mono loads from Google Fonts CDN |
+| Build fails on Netlify        | Confirm `netlify.toml` has `NODE_VERSION = "20"`                       |
+| Blank page after deploy       | Check browser console for missing import or hydration error            |
+| PowerShell execution error    | Run `Set-ExecutionPolicy RemoteSigned` once as Administrator           |
+
+---
+
+## 📦 Key Dependencies
+
+```json
+{
+  "astro": "^4.0.0",
+  "@astrojs/react": "^3.0.0",
+  "@astrojs/tailwind": "^5.0.0",
+  "react": "^18.0.0",
+  "react-dom": "^18.0.0",
+  "recharts": "^2.10.0",
+  "lucide-react": "^0.263.0"
+}
+```
+
+---
+
+## 📄 License
+
+MIT — free to use, fork, and adapt for internal operations dashboards, demos, or commercial projects.
+
+---
+
+## 🙌 Contributing
+
+Pull requests welcome. For major feature additions (new tabs, real-time integrations, mobile layout), please open an issue first to discuss the approach.
+
+---
+
+_Built with [Astro](https://astro.build) · Deployed on [Netlify](https://netlify.com)_
