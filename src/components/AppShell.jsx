@@ -74,63 +74,6 @@ export default function AppShell() {
           position: "relative",
         }}
       >
-        {/* ── WS STATUS BAR ── */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "flex-end",
-            gap: "8px",
-            padding: "4px 16px",
-            background: t.bgCard,
-            borderBottom: `1px solid ${t.border}`,
-            flexShrink: 0,
-          }}
-        >
-          <div
-            style={{
-              width: "6px",
-              height: "6px",
-              borderRadius: "50%",
-              background:
-                wsStatus === "connected"
-                  ? "#2ecc71"
-                  : wsStatus === "connecting"
-                    ? "#f39c12"
-                    : wsStatus === "error"
-                      ? "#e74c3c"
-                      : "#888",
-              boxShadow: wsStatus === "connected" ? "0 0 6px #2ecc71" : "none",
-            }}
-          />
-          <span
-            style={{
-              fontSize: "9px",
-              color: t.textDim,
-              fontFamily: "monospace",
-            }}
-          >
-            {wsStatus === "connected"
-              ? `WS LIVE${wsLatency ? ` · ${wsLatency}ms` : ""}${wsClients > 1 ? ` · ${wsClients} clients` : ""}`
-              : wsStatus === "connecting"
-                ? "WS CONNECTING..."
-                : wsStatus === "error"
-                  ? "WS ERROR · RETRYING"
-                  : "WS DISCONNECTED · RETRYING"}
-          </span>
-          {lastUpdated && (
-            <span
-              style={{
-                fontSize: "9px",
-                color: t.textDim,
-                fontFamily: "monospace",
-              }}
-            >
-              · {lastUpdated.toLocaleTimeString()}
-            </span>
-          )}
-        </div>
-
         {/* Ambient gradient (overview only) */}
         {nav.page === PAGES.OVERVIEW && (
           <div
