@@ -42,10 +42,6 @@ export default function AppShell() {
     refresh,
   } = useRefineryData();
 
-  // Derive a stable lastUpdated from kpis (ticked by WS)
-  // keep it as a Date object so callers can use time methods directly
-  const lastUpdated = kpis?.crudeThroughput?.value != null ? new Date() : null;
-
   return (
     <div
       style={{
