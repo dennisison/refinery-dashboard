@@ -397,6 +397,12 @@ export default function Overview({
   // Props might be serialized through SSR and come back as strings.
   // Ensure we always work with a Date object when formatting.
   const lastUpdatedDate = lastUpdated ? new Date(lastUpdated) : null;
+
+  // DEBUG: Log yield data to check if it's loading correctly
+  useEffect(() => {
+    console.log("🔍 Overview - yieldData:", yieldData, "loading:", loading);
+  }, [yieldData, loading]);
+
   const [time, setTime] = useState(new Date());
   useEffect(() => {
     const i = setInterval(() => setTime(new Date()), 1000);
