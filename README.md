@@ -17,9 +17,7 @@ A production-grade oil & gas refinery monitoring dashboard built with **Astro**,
 
 ## 🚀 Live Demo
 
-**[View on Netlify →](https://your-site-name.netlify.app)**
-
-> Replace with your Netlify URL after first deploy.
+**[View on Netlify →](https://refinery-dashboard.netlify.app)**
 
 ---
 
@@ -41,12 +39,18 @@ A production-grade oil & gas refinery monitoring dashboard built with **Astro**,
 ## 🛠 Tech Stack
 
 ```
+Frontend:
 Astro 4.x          — Static/SSR framework (React islands via client:load)
 React 18            — Interactive component layer
 Tailwind CSS 3.x    — Utility-first styling
 Recharts 2.x        — AreaChart, BarChart, LineChart, RadialBarChart
 Lucide React        — Icon system
 JetBrains Mono      — Monospace display font (Google Fonts)
+
+Backend API:
+Node.js 18+         — API server
+Express.js          — Web framework
+WebSocket           — Real-time data streaming
 ```
 
 ---
@@ -55,19 +59,51 @@ JetBrains Mono      — Monospace display font (Google Fonts)
 
 ```
 refinery-dashboard/
+├── api-server/
+│   ├── package.json
+│   ├── server.js
+│   └── adapters/
+│       ├── historianAdapter.js
+│       └── oli/
+│           ├── corrosionModels.js
+│           ├── oliAuth.js
+│           ├── oliClient.js
+│           └── oliMock.js
+│       └── ws/
+│           └── wsServer.js
 ├── public/
-│   └── favicon.svg
 ├── src/
 │   ├── components/
-│   │   └── RefineryDashboard.jsx    # Main dashboard (React island)
+│   │   ├── AppShell.jsx              # Main app shell with routing and data hooks
+│   │   ├── Larefinerydashboard.jsx   # Legacy dashboard component
+│   │   ├── layout/
+│   │   │   └── Sidebar.jsx           # Navigation sidebar
+│   │   ├── pages/
+│   │   │   ├── Corrosion.jsx         # Corrosion monitoring page
+│   │   │   ├── CrudeSlate.jsx        # Crude slate page
+│   │   │   ├── Markets.jsx           # Markets page
+│   │   │   ├── Overview.jsx          # Main overview dashboard
+│   │   │   ├── Quality.jsx           # Quality metrics page
+│   │   │   └── UnitsDetail.jsx       # Unit details page
+│   │   └── shared/
+│   │       ├── CorrosionPanel.jsx    # Corrosion panel component
+│   │       ├── KPIModal.jsx          # KPI modal
+│   │       └── Theme.jsx             # Theme utilities
+│   ├── hooks/
+│   │   ├── useNavigation.jsx         # Navigation hook
+│   │   ├── useProcessData.jsx        # Process data hook
+│   │   └── useRefineryData.jsx       # Refinery data hook
 │   ├── layouts/
-│   │   └── Base.astro               # HTML shell with meta tags
-│   └── pages/
-│       └── index.astro              # Entry page — mounts dashboard
-├── astro.config.mjs                 # Astro config (React + Tailwind integrations)
-├── tailwind.config.mjs              # Tailwind content paths
-├── netlify.toml                     # Netlify build config
+│   │   └── Base.astro                # HTML shell with meta tags
+│   ├── pages/
+│   │   └── index.astro               # Entry page — mounts dashboard
+│   └── styles/
+│       └── global.css                # Global styles
+├── astro.config.mjs                  # Astro config (React + Tailwind integrations)
+├── netlify.toml                      # Netlify build config
 ├── package.json
+├── tailwind.config.mjs               # Tailwind content paths
+├── tsconfig.json                     # TypeScript config
 └── README.md
 ```
 
@@ -90,10 +126,20 @@ refinery-dashboard/
 git clone https://github.com/YOUR_USERNAME/refinery-dashboard.git
 cd refinery-dashboard
 
-# 2. Install dependencies
+# 2. Install frontend dependencies
 npm install
 
-# 3. Start dev server
+# 3. Install API server dependencies
+cd api-server
+npm install
+cd ..
+
+# 4. Start API server (in one terminal)
+cd api-server
+npm start
+# Server runs on http://localhost:3001
+
+# 5. Start frontend dev server (in another terminal)
 npm run dev
 ```
 
