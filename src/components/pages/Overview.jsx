@@ -41,7 +41,6 @@ import {
   RefreshCw,
   WifiOff,
   Bell,
-  Settings,
   ChevronRight,
 } from "lucide-react";
 import { makeTooltip, tickStyle, Skeleton } from "../shared/Theme";

@@ -3,7 +3,7 @@
  * Tabs: Crack Spreads | Product Pricing | Regional Demand | Margin Breakdown
  */
 import { useState } from "react";
-import { TrendingUp, TrendingDown, DollarSign, BarChart2 } from "lucide-react";
+import { TrendingUp, TrendingDown } from "lucide-react";
 import {
   LineChart,
   Line,
@@ -18,7 +18,6 @@ import {
   ResponsiveContainer,
   ReferenceLine,
   Cell,
-  Legend,
 } from "recharts";
 import { makeTooltip, tickStyle } from "../shared/Theme";
 

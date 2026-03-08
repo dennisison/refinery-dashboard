@@ -8,7 +8,6 @@ import {
   Ship,
   Droplets,
   FlaskConical,
-  ArrowRight,
   Clock,
   CheckCircle,
   AlertTriangle,

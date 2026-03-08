@@ -158,9 +158,14 @@ export default function useRefineryData() {
       const endpoints = [
         ["kpis", "/kpis"],
         ["throughput", "/throughput"],
+        ["yield", "/yield"],
         ["units", "/units"],
         ["alerts", "/alerts"],
+        ["crudeSlate", "/crude-slate"],
+        ["margins", "/margins"],
+        ["production", "/production"],
         ["tankers", "/tankers"],
+        ["corrosion", "/corrosion"],
       ];
       endpoints.forEach(([key, path]) => poll(key, path));
     },

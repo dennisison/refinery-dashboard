@@ -75,7 +75,6 @@ refinery-dashboard/
 ├── src/
 │   ├── components/
 │   │   ├── AppShell.jsx              # Main app shell with routing and data hooks
-│   │   ├── Larefinerydashboard.jsx   # Legacy dashboard component
 │   │   ├── layout/
 │   │   │   └── Sidebar.jsx           # Navigation sidebar
 │   │   ├── pages/
@@ -86,12 +85,10 @@ refinery-dashboard/
 │   │   │   ├── Quality.jsx           # Quality metrics page
 │   │   │   └── UnitsDetail.jsx       # Unit details page
 │   │   └── shared/
-│   │       ├── CorrosionPanel.jsx    # Corrosion panel component
 │   │       ├── KPIModal.jsx          # KPI modal
 │   │       └── Theme.jsx             # Theme utilities
 │   ├── hooks/
 │   │   ├── useNavigation.jsx         # Navigation hook
-│   │   ├── useProcessData.jsx        # Process data hook
 │   │   └── useRefineryData.jsx       # Refinery data hook
 │   ├── layouts/
 │   │   └── Base.astro                # HTML shell with meta tags
